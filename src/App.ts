@@ -1,6 +1,8 @@
+// Load environment variables from .env file
 import dotenv from "dotenv";
 dotenv.config();
 
+// Import necessary modules
 import express from "express";
 import cors from "cors";
 import { connectDB } from "@/db";
@@ -15,13 +17,13 @@ import {
 } from "@/routers";
 import { setupSwagger } from "./swagger";
 
+// Create express app
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use("/demo", express.static("demo"));
 
 // Root route
 app.get("/", (req, res) => {
@@ -30,12 +32,12 @@ app.get("/", (req, res) => {
     documentation: `/api-docs`,
     endpoints: {
       users: "/users",
-      categories: "/categories", 
+      categories: "/categories",
       products: "/products",
       orders: "/orders",
       auth: "/auth",
-      ai: "/ai"
-    }
+      ai: "/ai",
+    },
   });
 });
 
@@ -50,11 +52,11 @@ app.use("/ai", aiRouter);
 // Setup Swagger documentation
 setupSwagger(app);
 
-// 404 handler for unmatched routes
-app.use("*", notFoundHandler);
-
 // Error handling middleware
 app.use(errorHandler);
+
+// 404 handler for unmatched routes
+app.use("*", notFoundHandler);
 
 // Start server
 const startServer = async () => {
@@ -69,5 +71,4 @@ const startServer = async () => {
     process.exit(1);
   }
 };
-
 startServer();
