@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "ES2020",
     "module": "commonjs",
-    "lib": ["ES2022"],
+    "lib": ["ES2020"],
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
@@ -20,8 +20,7 @@
       "@/routers": ["src/routers/index.ts"],
       "@/controllers": ["src/controllers/index.ts"],
       "@/schemas": ["src/schemas/index.ts"],
-      "@/middleware": ["src/middleware/index.ts"],
-      "@/utils": ["src/utils/index.ts"]
+      "@/middleware": ["src/middleware/index.ts"]
     }
   },
   "include": ["src/**/*"],

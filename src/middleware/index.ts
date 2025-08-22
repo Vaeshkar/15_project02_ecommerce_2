@@ -1,2 +1,4 @@
 export { errorHandler } from "./errorHandler";
-export * from "./validation";export { verifyToken } from './auth';
+export { default as notFoundHandler } from "./notFoundHandler";
+export * from "./validation";
+export { verifyToken } from "./auth";

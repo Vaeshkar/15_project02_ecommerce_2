@@ -4,7 +4,7 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import { connectDB } from "@/db";
-import { errorHandler } from "@/middleware";
+import { errorHandler, notFoundHandler } from "@/middleware";
 import {
   userRouter,
   categoryRouter,
@@ -23,6 +23,22 @@ app.use(cors());
 app.use(express.json());
 app.use("/demo", express.static("demo"));
 
+// Root route
+app.get("/", (req, res) => {
+  res.json({
+    message: "E-commerce API is running!",
+    documentation: `/api-docs`,
+    endpoints: {
+      users: "/users",
+      categories: "/categories", 
+      products: "/products",
+      orders: "/orders",
+      auth: "/auth",
+      ai: "/ai"
+    }
+  });
+});
+
 // Routes
 app.use("/users", userRouter);
 app.use("/categories", categoryRouter);
@@ -33,6 +49,9 @@ app.use("/ai", aiRouter);
 
 // Setup Swagger documentation
 setupSwagger(app);
+
+// 404 handler for unmatched routes
+app.use("*", notFoundHandler);
 
 // Error handling middleware
 app.use(errorHandler);
