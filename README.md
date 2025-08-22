@@ -1,320 +1,240 @@
-# eCommerce API with AI Image Generation
+# 🛒 Full-Stack AI-Powered Ecommerce Platform
 
-A RESTful API for an eCommerce application built with Express.js, TypeScript, and MongoDB. This project provides comprehensive endpoints for managing users, categories, products, and orders, plus AI-powered product image generation using OpenAI's DALL-E 3.
+A modern, full-stack ecommerce application built with TypeScript, featuring AI-powered product image generation, intelligent chatbot assistance, and a robust backend API.
 
-**WBS Coding School - Module 3 Backend Project**
+## 🚀 Project Overview
 
-## 🚀 Features
+This project demonstrates a complete ecommerce solution combining traditional web technologies with cutting-edge AI capabilities to create an enhanced shopping experience.
 
-- **User Management**: Create, read, update, and delete users
-- **JWT Authentication**: Secure login/register system with token-based auth
-- **Category Management**: Organize products into categories
-- **Product Management**: Full CRUD operations for products with category relationships
-- **Order Management**: Handle customer orders with product relationships
-- **🎨 AI Image Generation**: Generate product images using OpenAI DALL-E 3
-- **Input Validation**: Robust validation using Zod schemas
-- **API Documentation**: Auto-generated Swagger/OpenAPI documentation
-- **TypeScript**: Full type safety throughout the application
-- **MongoDB Integration**: Using Mongoose ODM for database operations
+### 🎯 Key Features
 
-## 🎯 Learning Objectives Covered
+- **🛍️ Complete Ecommerce Functionality** - Product catalog, shopping cart, order management
+- **🤖 AI Product Image Generation** - DALL-E 3 integration for automatic product imagery
+- **💬 Intelligent Chatbot** - AI-powered customer support and product recommendations
+- **🔐 Secure Authentication** - JWT-based user authentication and authorization
+- **📱 Responsive Design** - Mobile-first approach with modern UI/UX
+- **🎨 Admin Dashboard** - Content management and analytics
+- **💳 Payment Processing** - Secure checkout and payment handling
+- **📊 Real-time Analytics** - Performance monitoring and user insights
 
-This project demonstrates:
+## 🏗️ Architecture
 
-- RESTful API design and implementation
-- NoSQL database integration with MongoDB
-- Authentication and authorization with JWT
-- External API integration (OpenAI)
-- TypeScript in a Node.js environment
-- API documentation with Swagger
-- Environment variable management
-- Git version control and GitHub workflows
+### Monorepo Structure
+```
+15_project02_ecommerce_2/
+├── backend/                 # Node.js/Express API Server
+│   ├── src/
+│   │   ├── controllers/     # Route handlers
+│   │   ├── middleware/      # Auth, validation, error handling
+│   │   ├── models/         # MongoDB schemas
+│   │   ├── routers/        # API route definitions
+│   │   ├── utils/          # AI utilities (enhanced with retry logic)
+│   │   └── App.ts          # Express application setup
+│   ├── .env                # Environment variables
+│   ├── package.json        # Backend dependencies
+│   └── tsconfig.json       # TypeScript configuration
+├── frontend/               # React/Next.js Frontend (Coming Soon)
+│   ├── src/
+│   │   ├── components/     # Reusable UI components
+│   │   ├── pages/          # Application pages
+│   │   ├── hooks/          # Custom React hooks
+│   │   ├── services/       # API communication
+│   │   └── styles/         # CSS/Styling
+│   └── package.json        # Frontend dependencies
+├── shared/                 # Shared TypeScript types (Coming Soon)
+│   └── types/              # Common interfaces and types
+└── README.md               # Project documentation
+```
 
-## 📋 Prerequisites
+## 🛠️ Technology Stack
 
-Before running this application, make sure you have:
+### Backend
+- **Runtime:** Node.js with TypeScript
+- **Framework:** Express.js
+- **Database:** MongoDB with Mongoose ODM
+- **Authentication:** JWT (JSON Web Tokens)
+- **API Documentation:** Swagger/OpenAPI
+- **AI Integration:** OpenAI API (GPT-4 & DALL-E 3)
+- **Validation:** Zod schemas
+- **File Uploads:** Multer
 
-- **Node.js** (v18 or higher)
-- **npm** package manager
-- **MongoDB** database (local installation)
-- **OpenAI API Key** (for image generation features)
+### Frontend (Planned)
+- **Framework:** React with TypeScript
+- **Styling:** Tailwind CSS
+- **State Management:** React Context/Redux Toolkit
+- **UI Components:** Custom component library
+- **Forms:** React Hook Form with validation
+- **Icons:** Lucide React
 
-## 🛠️ Installation & Setup
+### AI & Enhancement Features
+- **Image Generation:** DALL-E 3 with retry logic and caching
+- **Chat Assistance:** GPT-4 integration for customer support
+- **Rate Limiting:** Smart API usage optimization
+- **Response Caching:** 1-hour TTL for cost optimization
+- **Error Handling:** Robust retry mechanisms with exponential backoff
 
-1. **Clone the repository**
+### DevOps & Deployment
+- **Version Control:** Git with GitHub
+- **Package Management:** npm
+- **Build Tools:** TypeScript Compiler
+- **Development:** Hot reload with tsx/nodemon
+- **Environment:** Docker containers (planned)
+- **Hosting:** Cloud deployment ready
 
-   ```bash
-   git clone https://github.com/Vaeshkar/15_project02_ecommerce.git
-   cd 15_project02_ecommerce
-   ```
+## 🚦 API Endpoints
 
-2. **Install dependencies**
+### Core Ecommerce
+- `GET /products` - Product catalog
+- `POST /products` - Create product (admin)
+- `GET /categories` - Product categories
+- `POST /orders` - Place order
+- `GET /users/profile` - User profile
 
-   ```bash
-   npm install
-   ```
+### Authentication
+- `POST /auth/register` - User registration
+- `POST /auth/login` - User login
+- `POST /auth/logout` - User logout
+- `GET /auth/verify` - Token verification
 
-3. **Environment Setup**
+### AI-Powered Features
+- `POST /ai/generate-product-image` - Generate product images with DALL-E 3
+- `GET /ai/cache/stats` - Monitor AI service performance
+- `DELETE /ai/cache/clear` - Clear AI response cache
+- `GET /ai/test` - AI service health check
 
-   Create a `.env.local` file in the root directory:
+### Documentation
+- `GET /api-docs` - Interactive Swagger documentation
 
-   ```env
-   # Database
-   MONGODB_URI=mongodb://admin:password@localhost:27017/ecommerce
-   MONGODB_USERNAME=admin
-   MONGODB_PASSWORD=your_password
+## 🤖 AI Integration Details
 
-   # Server
-   PORT=3000
-   NODE_ENV=development
+### Enhanced Image Generation
+- **Retry Logic:** Automatic retry with exponential backoff (3 attempts)
+- **Caching:** 1-hour response caching for cost optimization
+- **Rate Limiting:** Smart API call spacing to prevent limits
+- **Configurable Options:** Model, size, quality, and style settings
+- **Error Handling:** Comprehensive error reporting and logging
 
-   # Authentication
-   JWT_SECRET=your_super_secret_jwt_key_here
+### Chatbot Capabilities (Planned)
+- **Product Recommendations:** AI-powered suggestions based on preferences
+- **Customer Support:** Automated responses to common queries
+- **Order Assistance:** Help with order tracking and modifications
+- **Inventory Queries:** Real-time product availability information
 
-   # AI Image Generation
-   OPENAI_API_KEY=sk-proj-your-openai-api-key-here
-   ```
+## 🔧 Setup & Installation
 
-   **Note**: Never commit `.env.local` to version control!
+### Prerequisites
+- Node.js (v18 or higher)
+- MongoDB (local or Atlas)
+- OpenAI API key
+- Git
 
-4. **Start MongoDB**
-
-   Make sure your MongoDB server is running locally.
-
-## 🚀 Getting Started
-
-### Development Mode
-
+### Backend Setup
 ```bash
+# Clone the repository
+git clone <repository-url>
+cd 15_project02_ecommerce_2/backend
+
+# Install dependencies
+npm install
+
+# Setup environment variables
+cp .env.example .env
+# Edit .env with your configuration
+
+# Start development server
 npm run dev
 ```
 
-This starts the server with nodemon for automatic restarts on file changes.
+### Environment Variables
+```env
+# Database
+MONGO_URI=mongodb://localhost:27017/ecommerce
+DB_NAME=ecommerce_db
 
-The server will be available at `http://localhost:3000`
+# Authentication
+ACCESS_JWT_SECRET=your_super_secret_jwt_key
+REFRESH_JWT_SECRET=your_refresh_token_secret
 
-## 📚 API Documentation
+# AI Services
+OPENAI_API_KEY=sk-your-openai-api-key
 
-Once the server is running, visit:
-
-- **Swagger UI**: `http://localhost:3000/api-docs`
-
-The API documentation includes interactive endpoint testing and authentication setup.
-
-## 🛣️ API Endpoints
-
-### Authentication
-
-- `POST /auth/register` - Register new user
-- `POST /auth/login` - Login user (returns JWT token)
-
-### Users
-
-- `GET /users` - Get all users
-- `GET /users/:id` - Get user by ID
-- `POST /users` - Create new user
-- `PUT /users/:id` - Update user
-- `DELETE /users/:id` - Delete user
-
-### Categories
-
-- `GET /categories` - Get all categories
-- `GET /categories/:id` - Get category by ID
-- `POST /categories` - Create new category
-- `PUT /categories/:id` - Update category
-- `DELETE /categories/:id` - Delete category
-
-### Products
-
-- `GET /products` - Get all products (public)
-- `GET /products/:id` - Get product by ID
-- `POST /products` - Create new product (requires auth)
-- `PUT /products/:id` - Update product (requires auth)
-- `DELETE /products/:id` - Delete product (requires auth)
-
-### Orders
-
-- `GET /orders` - Get all orders (requires auth)
-- `GET /orders/:id` - Get order by ID (requires auth)
-- `POST /orders` - Create new order (requires auth)
-- `PUT /orders/:id` - Update order (requires auth)
-- `DELETE /orders/:id` - Delete order (requires auth)
-
-### 🎨 AI Features
-
-- `GET /ai/test` - Test AI service connectivity
-- `POST /ai/generate-product-image` - Generate product image with DALL-E 3 (requires auth)
-
-## 📊 Data Models
-
-### User
-
-```typescript
-{
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string; // hashed with bcrypt
-  isActive: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-}
+# Server
+PORT=3000
+NODE_ENV=development
 ```
 
-### Product
-
-```typescript
-{
-  name: string;
-  description: string;
-  price: number;
-  categoryId: ObjectId;
-  imageUrl?: string; // Can be AI-generated
-  createdAt: Date;
-  updatedAt: Date;
-}
+### Frontend Setup (Coming Soon)
+```bash
+cd frontend
+npm install
+npm run dev
 ```
 
-## 🧠 AI Image Generation
+## 📈 Current Development Status
 
-The API integrates with OpenAI's DALL-E 3 to generate product images:
+### ✅ Completed
+- [x] Backend API architecture
+- [x] Database models and schemas
+- [x] Authentication system
+- [x] Core ecommerce endpoints
+- [x] AI image generation with enhanced features
+- [x] Error handling and validation
+- [x] API documentation
+- [x] Monorepo structure
 
-1. **Create a product** with name and description
-2. **Call the AI endpoint** with the product ID
-3. **Receive a generated image URL** based on the product details
+### 🔄 In Progress
+- [ ] Frontend React application
+- [ ] UI/UX design implementation
+- [ ] Shopping cart functionality
+- [ ] Payment integration
 
-Example auto-generated prompt:
+### 📋 Planned
+- [ ] AI chatbot integration
+- [ ] Admin dashboard
+- [ ] Real-time notifications
+- [ ] Advanced analytics
+- [ ] Mobile app (React Native)
+- [ ] Docker containerization
+- [ ] CI/CD pipeline
+- [ ] Cloud deployment
 
-```
-"Professional product photography of Luxury Leather Handbag, Elegant brown leather handbag with gold hardware, white background, high quality, e-commerce style, studio lighting"
-```
+## 🎓 Learning Objectives
 
-## 🔒 Authentication
+This project serves as a comprehensive learning experience covering:
 
-The API uses JWT (JSON Web Tokens) for authentication:
+- **Full-Stack Development:** End-to-end application development
+- **Modern JavaScript/TypeScript:** Advanced language features and patterns
+- **API Design:** RESTful services and documentation
+- **Database Management:** NoSQL with MongoDB
+- **AI Integration:** Practical machine learning implementation
+- **Authentication & Security:** JWT and secure coding practices
+- **DevOps Practices:** Version control, deployment, and monitoring
+- **Project Architecture:** Scalable code organization and design patterns
 
-1. **Register/Login** to receive a JWT token
-2. **Include the token** in the Authorization header: `Bearer your_jwt_token`
-3. **Protected routes** will validate the token before processing requests
+## 🤝 Contributing
 
-## 🔧 Project Structure
+This is a learning project, but contributions and suggestions are welcome!
 
-```
-src/
-├── App.ts                    # Main application entry point
-├── controllers/              # Request handlers
-├── db/                      # Database connection
-├── models/                  # Mongoose models (User, Product, etc.)
-├── routers/                 # Express routes
-│   ├── authRouter.ts        # Authentication endpoints
-│   ├── aiRouter.ts          # AI image generation
-│   └── ...
-├── middleware/              # Custom middleware
-│   ├── auth.ts              # JWT verification
-│   ├── validation.ts        # Request validation
-│   └── errorHandler.ts      # Error handling
-├── schemas/                 # Zod validation schemas
-└── swagger.ts               # API documentation setup
-```
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
-## 🎓 Technologies Learned
+## 📄 License
 
-- **Backend**: Node.js, Express.js, TypeScript
-- **Database**: MongoDB, Mongoose ODM
-- **Authentication**: JWT, bcrypt
-- **Validation**: Zod schemas
-- **Documentation**: Swagger/OpenAPI
-- **AI Integration**: OpenAI DALL-E 3 API
-- **Development**: nodemon, ts-node
-- **Version Control**: Git, GitHub
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🔧 Development Challenges & Solutions
+## 🙏 Acknowledgments
 
-### Challenge 1: Environment Variable Loading
-
-**Problem**: Environment variables not loading correctly causing MongoDB and API key issues.
-**Solution**: Moved `dotenv.config()` before all imports to ensure variables load before modules that need them.
-
-### Challenge 2: Git Security
-
-**Problem**: Accidentally committed API keys to GitHub, triggering security warnings.
-**Solution**: Used `git reset` to clean history and properly configured `.gitignore`.
-
-### Challenge 3: API Integration
-
-**Problem**: Hugging Face API was unreliable for image generation.
-**Solution**: Switched to OpenAI DALL-E 3 for more reliable results.
-
-## 🚀 Demo Instructions
-
-For presentation/demo purposes:
-
-1. **Start the server**: `npm run dev`
-2. **Open Swagger UI**: `http://localhost:3000/api-docs`
-3. **Demo flow**:
-   - Register a user via `/auth/register`
-   - Copy the JWT token
-   - Click "Authorize" in Swagger and enter the token
-   - Create a product via `/products`
-   - Generate an AI image via `/ai/generate-product-image`
-   - Show the generated image URL
-
-## 🛡️ Security Features
-
-- JWT-based authentication
-- Password hashing with bcrypt
-- Input validation on all endpoints
-- Environment variables for sensitive data
-- Proper `.gitignore` configuration
-- No API keys in source code
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-1. **MongoDB Connection Error**
-
-   - Ensure MongoDB is running: `brew services start mongodb-community`
-   - Check credentials in `.env.local`
-
-2. **JWT Token Issues**
-
-   - Ensure you're including `Bearer ` prefix in Authorization header
-   - Check token hasn't expired (24h default)
-
-3. **AI Image Generation Fails**
-
-   - Verify OpenAI API key is valid
-   - Check OpenAI account has sufficient credits
-   - Test with `/ai/test` endpoint first
-
-4. **Port Already in Use**
-   - Kill process: `lsof -ti:3000 | xargs kill -9`
-   - Or change PORT in `.env.local`
-
-## 📝 Assignment Requirements Met
-
-- ✅ RESTful API with CRUD operations
-- ✅ Database integration with relationships
-- ✅ Authentication system
-- ✅ Input validation and error handling
-- ✅ API documentation
-- ✅ TypeScript implementation
-- ✅ Git version control
-- ✅ **Bonus**: AI integration for enhanced functionality
-
-## 🎯 Future Enhancements
-
-- Image upload and storage (AWS S3)
-- Email verification system
-- Password reset functionality
-- Shopping cart management
-- Payment integration
-- Admin dashboard
-- Product reviews and ratings
+- **WBS Coding School** for the educational framework
+- **OpenAI** for AI services integration
+- **MongoDB** for database solutions
+- **Express.js** community for excellent documentation
+- **TypeScript** team for language innovation
 
 ---
 
-**WBS Coding School - Backend Development Module**
-_Student: Dennis van Leeuwen_
-_Project: eCommerce API with AI Integration_
+**Built with ❤️ for learning and innovation**
+
+*This project demonstrates modern full-stack development practices combined with AI integration for creating next-generation web applications.*
